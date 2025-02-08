@@ -54,18 +54,18 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         docker image prune -a -f
         docker container prune -f
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        sudo mkdir -p /mnt/workdir
+        sudo chown $USER:$GROUPS /mnt/workdir
 
     - name: 检查空间使用情况1
       if: (!cancelled())
       run: df -hT
 
     - name: 克隆源码
-      working-directory: /workdir
+      working-directory: /mnt/workdir
       run: |
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         # echo "src-git opp https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> ./feeds.conf.default
         # echo "src-git modem https://github.com/FUjr/modem_feeds.git;main" >> ./feeds.conf.default
