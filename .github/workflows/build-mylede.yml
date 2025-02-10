@@ -59,7 +59,9 @@ jobs:
 
     - name: 检查空间使用情况1
       if: (!cancelled())
-      run: df -hT
+      run: |
+        df -hT
+        cat /proc/cpuinfo
 
     - name: 克隆源码
       working-directory: /mnt/workdir
